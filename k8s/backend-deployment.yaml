@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: cllone
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: henriquefurtado47/cllone-backend:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: cllone-secrets
+                  key: SECRET_KEY
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: cllone-secrets
+                  key: POSTGRES_DB
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: cllone-secrets
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cllone-secrets
+                  key: POSTGRES_PASSWORD
+            - name: DEBUG
+              valueFrom:
+                configMapKeyRef:
+                  name: cllone-config
+                  key: DEBUG
+            - name: ALLOWED_HOSTS
+              valueFrom:
+                configMapKeyRef:
+                  name: cllone-config
+                  key: ALLOWED_HOSTS
+            - name: DATABASE_ENGINE
+              valueFrom:
+                configMapKeyRef:
+                  name: cllone-config
+                  key: DATABASE_ENGINE
+            - name: POSTGRES_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: cllone-config
+                  key: POSTGRES_HOST
+            - name: POSTGRES_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: cllone-config
+                  key: POSTGRES_PORT
+            - name: CORS_ALLOWED_ORIGINS
+              valueFrom:
+                configMapKeyRef:
+                  name: cllone-config
+                  key: CORS_ALLOWED_ORIGINS
+            - name: CSRF_TRUSTED_ORIGINS
+              valueFrom:
+                configMapKeyRef:
+                  name: cllone-config
+                  key: CSRF_TRUSTED_ORIGINS
+          readinessProbe:
+            httpGet:
+              path: /api/schema/
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 10
