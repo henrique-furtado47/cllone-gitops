@@ -14,7 +14,7 @@ resources:
 images:
 - name: henriquefurtado47/cllone-backend
   newName: henriquefurtado47/cllone-backend
-  newTag: f361ee7
+  newTag: 072e535
 - name: henriquefurtado47/cllone-frontend
   newName: henriquefurtado47/cllone-frontend
-  newTag: f361ee7
+  newTag: 072e535
