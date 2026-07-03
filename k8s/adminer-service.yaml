@@ -1,0 +1,16 @@
+# Adminer exposto via NodePort 30800 para acesso direto durante a demonstração.
+# Login: sistema=PostgreSQL, servidor=postgres-service, usuário/senha/base do secret.
+apiVersion: v1
+kind: Service
+metadata:
+  name: adminer
+  namespace: cllone
+spec:
+  type: NodePort
+  selector:
+    app: adminer
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30800
+      protocol: TCP

@@ -1,0 +1,32 @@
+# Adminer - ferramenta web para visualização/administração do PostgreSQL.
+# Atende ao item "Ter uma ferramenta para visualização do banco de dados".
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adminer
+  namespace: cllone
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adminer
+  template:
+    metadata:
+      labels:
+        app: adminer
+    spec:
+      containers:
+        - name: adminer
+          image: adminer:4
+          ports:
+            - containerPort: 8080
+          env:
+            # Preenche o servidor por padrão na tela de login do Adminer.
+            - name: ADMINER_DEFAULT_SERVER
+              value: postgres-service
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
