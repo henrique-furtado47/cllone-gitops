@@ -19,6 +19,9 @@ cllone-gitops/
     backend-service.yaml
     frontend-deployment.yaml
     frontend-service.yaml
+    adminer-deployment.yaml   # visualizador do banco (Adminer)
+    adminer-service.yaml      # NodePort 30800
+    ingress.yaml              # Traefik: / -> frontend, /api -> backend
     kustomization.yaml    # GitHub Actions atualiza as tags aqui
   argocd/
     application.yaml      # manifesto ArgoCD Application
@@ -66,6 +69,24 @@ Ou pela UI do ArgoCD com:
 - Path: `k8s`
 - Namespace: `cllone`
 - Sync Policy: Automatic + Auto-Prune + Self-Heal
+
+## Acesso à aplicação (Traefik) e ao banco (Adminer)
+
+O k3s já traz o **Traefik** como Ingress Controller. O `ingress.yaml` faz o
+roteamento por caminho, como sugerido na avaliação:
+
+| Caminho   | Serviço          | Descrição                     |
+|-----------|------------------|-------------------------------|
+| `/`       | frontend-service | SPA Vue                       |
+| `/api`    | backend          | API REST Django               |
+| `/admin`  | backend          | Django admin                  |
+| `/static` | backend          | estáticos do Django           |
+
+Acesso na porta 80 do IP público do control plane: `http://<IP>/` e `http://<IP>/api/`.
+
+O **Adminer** (visualização do banco) fica no NodePort **30800**:
+`http://<IP>:30800` — sistema `PostgreSQL`, servidor `postgres-service`,
+usuário/senha/base conforme o `Secret`.
 
 ## Fluxo CD ponta-a-ponta
 
