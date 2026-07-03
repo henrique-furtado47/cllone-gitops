@@ -11,6 +11,9 @@ resources:
 - backend-service.yaml
 - frontend-deployment.yaml
 - frontend-service.yaml
+- adminer-deployment.yaml
+- adminer-service.yaml
+- ingress.yaml
 images:
 - name: henriquefurtado47/cllone-backend
   newName: henriquefurtado47/cllone-backend
