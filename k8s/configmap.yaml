@@ -11,5 +11,5 @@ data:
   POSTGRES_PORT: "5432"
   # Substitua SEU_IP_PUBLICO pelo IP público do control plane.
   # Porta 80 = acesso via Traefik (/, /api); 30100 = NodePort do frontend (fallback).
-  CORS_ALLOWED_ORIGINS: "http://SEU_IP_PUBLICO,http://SEU_IP_PUBLICO:30100"
-  CSRF_TRUSTED_ORIGINS: "http://SEU_IP_PUBLICO,http://SEU_IP_PUBLICO:30100"
+  CORS_ALLOWED_ORIGINS: "http://54.221.169.41,http://54.221.169.41:30100"
+  CSRF_TRUSTED_ORIGINS: "http://54.221.169.41,http://54.221.169.41:30100"
