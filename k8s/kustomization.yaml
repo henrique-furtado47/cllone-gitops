@@ -17,7 +17,7 @@ resources:
 images:
 - name: henriquefurtado47/cllone-backend
   newName: henriquefurtado47/cllone-backend
-  newTag: adadbf4
+  newTag: 097c060
 - name: henriquefurtado47/cllone-frontend
   newName: henriquefurtado47/cllone-frontend
-  newTag: adadbf4
+  newTag: 097c060
